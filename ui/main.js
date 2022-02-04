@@ -22,7 +22,7 @@ login = document.querySelector(".b-login")
 login.addEventListener('click', () => {
     let nameData = document.getElementById("name").value // NAME
     let passData = document.getElementById("pass").value // PASSWORD
-    if (!document.querySelector(".checkmark").checked) return
+    if (!document.querySelector(".checkmark").checked) || nameData.length < 1 || passData.length < 1) return
     $('.box').fadeOut();
     $.post(`http://${GetParentResourceName()}/login`, JSON.stringify({
       username: nameData,
@@ -35,7 +35,7 @@ reg = document.querySelector(".b-reg")
 reg.addEventListener('click', () => {
     let nameData = document.getElementById("name").value
     let passData = document.getElementById("pass").value
-    if (!document.querySelector(".checkmark").checked) return
+    if (!document.querySelector(".checkmark").checked) || nameData.length < 1 || passData.length < 1) return
     $('.box').fadeOut();
     document.getElementById("pass").value='';
     $.post(`http://${GetParentResourceName()}/reg`, JSON.stringify({
