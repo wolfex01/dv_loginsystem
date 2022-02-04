@@ -24,7 +24,7 @@ login.addEventListener('click', () => {
     let passData = document.getElementById("pass").value // PASSWORD
     if (!document.querySelector(".checkmark").checked) return
     $('.box').fadeOut();
-    $.post(`http://dv_loginsystem/login`, JSON.stringify({
+    $.post(`http://${GetParentResourceName()}/login`, JSON.stringify({
       username: nameData,
       passw: passData,
     })
@@ -38,7 +38,7 @@ reg.addEventListener('click', () => {
     if (!document.querySelector(".checkmark").checked) return
     $('.box').fadeOut();
     document.getElementById("pass").value='';
-    $.post(`http://dv_loginsystem/reg`, JSON.stringify({
+    $.post(`http://${GetParentResourceName()}/reg`, JSON.stringify({
       username: nameData,
       passw: passData,
     })
