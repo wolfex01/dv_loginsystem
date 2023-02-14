@@ -1,49 +1,64 @@
-let login 
-let reg
+let login;
+let reg;
 
+// Add event listener for messages from the server
 window.addEventListener('message', (event) => {
-    let data = event.data
-    const Nui = document.querySelector('.box')
-    if (data.action == 'show') {
-      $('.box').fadeIn();
-      Nui.style.visibility = 'visible'
+    const data = event.data;
+    const nui = document.querySelector('.box');
+
+    if (data.action === 'show') {
+        $('.box').fadeIn();
+        nui.style.visibility = 'visible';
     }
 
-    if (data.action == 'hide') {
-      $('.box').fadeOut();
-      Nui.style.visibility = 'hidden'
-      document.getElementById("pass").value='';
+    if (data.action === 'hide') {
+        $('.box').fadeOut();
+        nui.style.visibility = 'hidden';
+        document.getElementById("pass").value = '';
     }
-    const element = document.querySelector(".input-user")
-    element.value = event.data.name
+
+    const element = document.querySelector(".input-user");
+    element.value = event.data.name;
 });
 
-login = document.querySelector(".b-login")
+// Add click event listener for login button
+login = document.querySelector(".b-login");
 login.addEventListener('click', () => {
-    let nameData = document.getElementById("name").value // NAME
-    let passData = document.getElementById("pass").value // PASSWORD
-    if (!document.querySelector(".checkmark").checked || nameData.length < 1 || passData.length < 1) return
+    const nameData = document.getElementById("name").value; // NAME
+    const passData = document.getElementById("pass").value; // PASSWORD
+
+    if (!document.querySelector(".checkmark").checked || nameData.length < 1 || passData.length < 1) {
+        return;
+    }
+
     $('.box').fadeOut();
+
     $.post(`http://${GetParentResourceName()}/login`, JSON.stringify({
-      username: nameData,
-      passw: passData,
-    })
-  );
-})
+        username: nameData,
+        passw: passData,
+    }));
+});
 
-reg = document.querySelector(".b-reg")
+// Add click event listener for register button
+reg = document.querySelector(".b-reg");
 reg.addEventListener('click', () => {
-    let nameData = document.getElementById("name").value
-    let passData = document.getElementById("pass").value
-    if (!document.querySelector(".checkmark").checked || nameData.length < 1 || passData.length < 1) return
-    $('.box').fadeOut();
-    document.getElementById("pass").value='';
-    $.post(`http://${GetParentResourceName()}/reg`, JSON.stringify({
-      username: nameData,
-      passw: passData,
-    })
-  );
-})
+    const nameData = document.getElementById("name").value;
+    const passData = document.getElementById("pass").value;
 
-// DRAGGABLE
-$(".box").draggable({ handle:'.header'});
+    if (!document.querySelector(".checkmark").checked || nameData.length < 1 || passData.length < 1) {
+        return;
+    }
+
+    $('.box').fadeOut();
+    document.getElementById("pass").value = '';
+
+    $.post(`http://${GetParentResourceName()}/reg`, JSON.stringify({
+        username: nameData,
+        passw: passData,
+    }));
+});
+
+// Add draggable functionality to the login box
+$(".box").draggable({
+    handle: '.header'
+});
